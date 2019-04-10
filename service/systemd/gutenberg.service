@@ -1,0 +1,27 @@
+# filename gutenberg.service
+[Unit]
+Description=Simple Docker ElasticsSearch Application
+After=network.target
+After=docker.service
+After=gutenbergproxy.service
+After=gutenbergbook.service
+After=gutenbergreview.service
+After=gutenbergorder.service
+After=gutenberguser.service
+Requires=docker.service
+Requires=gutenbergproxy.service
+Requires=gutenbergbook.service
+Requires=gutenbergreview.service
+Requires=gutenbergorder.service
+Requires=gutenberguser.service
+
+[Service]
+# edit to match your own filesystem
+Environment="BASHDIR=/home/ubersfeld/Documents/gutenberg-adagio/service"
+# edit to match your own username
+User=ubersfeld
+ExecStart=/bin/bash -c 'cd $BASHDIR ; ./startFrontend.sh'
+ExecStop=/bin/bash -c 'cd $BASHDIR ; ./stopGutenberg.sh'
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,20 @@
+# filename gutenbergconf.service
+[Unit]
+Description=Simple Docker Configuration Server
+After=network.target
+After=docker.service
+After=gutenbergeureka.service
+Requires=docker.service
+Requires=gutenbergeureka.service
+
+[Service]
+# edit to match your own filesystem
+Environment="BASHDIR=/home/ubersfeld/Documents/gutenberg-adagio/service"
+Environment="CONFIGREPO=/home/ubersfeld/Documents/gutenberg-adagio/config-repo"
+# edit to match your own username
+User=ubersfeld
+ExecStart=/bin/bash -c 'cd $BASHDIR ; ./startConfig.sh'
+ExecStop=/bin/bash -c 'cd $BASHDIR ; ./stopConfig.sh'
+
+[Install]
+WantedBy=multi-user.target

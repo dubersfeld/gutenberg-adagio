@@ -1,0 +1,19 @@
+# filename gutenbergnode.service
+[Unit]
+Description=Simple Docker ElasticsSearch Application
+After=network.target
+After=docker.service
+Requires=docker.service
+
+[Service]
+# edit to match your own username
+User=ubersfeld
+# edit path to match your own filesystem
+Environment="BASHDIR=/home/ubersfeld/Documents/gutenberg-adagio/service"
+ExecStartPre=-/bin/bash -c 'cd $BASHDIR ; ./createNetwork.sh'
+ExecStartPre=-/bin/bash -c 'cd $BASHDIR ; ./createVolume.sh'
+ExecStart=/bin/bash -c 'cd $BASHDIR ; ./startNode.sh'
+ExecStop=/bin/bash -c 'cd $BASHDIR  ; ./stopNode.sh'
+
+[Install]
+WantedBy=multi-user.target

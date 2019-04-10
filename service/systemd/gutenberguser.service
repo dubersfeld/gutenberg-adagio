@@ -1,0 +1,23 @@
+# filename gutenberguser.service
+[Unit]
+Description=Simple Docker RESTful Server
+After=network.target
+After=docker.service
+After=gutenbergnode.service
+After=gutenbergeureka.service
+After=gutenbergconf.service
+Requires=docker.service
+Requires=gutenbergnode.service
+Requires=gutenbergeureka.service
+Requires=gutenbergconf.service
+
+[Service]
+# edit path to match your own filesystem
+Environment="BASHDIR=/home/ubersfeld/Documents/gutenberg-adagio/service"
+# edit to match your own username
+User=ubersfeld
+ExecStart=/bin/bash -c 'cd $BASHDIR ; ./startUser.sh'
+ExecStop=/bin/bash -c 'cd $BASHDIR ; ./stopUser.sh'
+
+[Install]
+WantedBy=multi-user.target
