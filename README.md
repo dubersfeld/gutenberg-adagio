@@ -1,0 +1,2 @@
+# gutenberg-adagio
+I present here a microservice-oriented application that is a spin-off of the previous project [gutenberg-allegro](https://github.com/dubersfeld/gutenberg-allegro). This project uses an ElasticSearch Docker image instead of the local ElasticSearch service that should be stopped to avoid any port conflict. The main difference is that the application is started using systemd instead of Docker-Compose.
